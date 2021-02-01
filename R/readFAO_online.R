@@ -31,7 +31,7 @@
 #' \item \code{ValueOfProd}: Value of Agricultural Production ("Value_of_Production_E_All_Data.zip")
 #' }
 #' @return FAO data as MAgPIE object
-#' @author Ulrich Kreidenweis, Abhijeet Mishra, Mishko Stevanovic, David Klein, Edna Molina
+#' @author Ulrich Kreidenweis, Abhijeet Mishra, Mishko Stevanovic, David Klein, Edna Molina Bacca
 #' @seealso \code{\link{readSource}}
 #' @examples
 #'

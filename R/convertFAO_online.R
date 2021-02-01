@@ -12,7 +12,7 @@
 #' @param x MAgPIE object containing original values
 #' @param subtype The FAO file type, e.g.: CBCrop
 #' @return Data as MAgPIE object with common country list
-#' @author Ulrich Kreidenweis, Abhijeet Mishra, Mishko Stevanovic, David Klein
+#' @author Ulrich Kreidenweis, Abhijeet Mishra, Mishko Stevanovic, David Klein, Edna Molina Bacca
 #' @seealso \code{\link{readFAO}}, \code{\link{readSource}},
 #' @examples
 #'
