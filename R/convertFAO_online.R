@@ -45,8 +45,34 @@ convertFAO_online <- function(x,subtype) {
                                      "Yield_Carcass_Weight_(0_1g/An)", # new FAO data
                                      "Yield_(hg)")                     # new FAO data
   
-  # select elements only if unit (dim=3.2) exists in x (otherwise magclass would complain when trying to remove non-existent elements with invert=TRUE)
-  relative_delete <- if(subtype %in% names(relative_delete)) relative_delete[[subtype]][relative_delete[[subtype]] %in% getItems(x,dim=3.2)] else NULL
+  # Relative and unused datasets for the Capital Stock database
+  relative_delete[["CapitalStock"]] <- c("22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Value_Local_Currency_(millions)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Value_Local_Currency_2015_prices_(millions)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Value_USD_(millions)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Value_Added_Local_Currency_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Value_Added_Local_Currency_2015_prices_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Value_Added_USD_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Agriculture_orientation_index_Local_Currency_(index)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Agriculture_orientation_index_Local_Currency_2015_prices_(index)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Agriculture_orientation_index_USD_(index)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Agriculture_orientation_index_USD_2015_prices_(index)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Gross_Fixed_Capital_Formation_USD_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Gross_Fixed_Capital_Formation_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Gross_Fixed_Capital_Formation_2015_prices_(percentage)",
+                                       "22031|Consumption of Fixed Capital (Agriculture, Forestry and Fishing).Value_Local_Currency_(millions)",
+                                       "22031|Consumption of Fixed Capital (Agriculture, Forestry and Fishing).Value_Local_Currency_2015_prices_(millions)",
+                                       "22031|Consumption of Fixed Capital (Agriculture, Forestry and Fishing).Value_USD_(millions)",
+                                       "22034|Net Capital Stocks (Agriculture, Forestry and Fishing).Value_Local_Currency_(millions)",
+                                       "22034|Net Capital Stocks (Agriculture, Forestry and Fishing).Value_Local_Currency_2015_prices_(millions)",
+                                       "22034|Net Capital Stocks (Agriculture, Forestry and Fishing).Value_USD_(millions)",
+                                       "22033|Gross Capital Stocks (Agriculture, Forestry and Fishing).Value_Local_Currency_(millions)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Value_Added_USD_2015_prices_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Share_of_Gross_Fixed_Capital_Formation_USD_2015_prices_(percentage)",
+                                       "22030|Gross Fixed Capital Formation (Agriculture, Forestry and Fishing).Value_Local_Currency_(millions)")
+
+  
+  # select elements only if unit (dim=3.2) exists in x (otherwise magclass would complain when trying to remove non-existent elements with invert=TRUE). For capital stocks selects the complete name. The dot in the original dataset causes errors.
+  relative_delete <- if((subtype %in% names(relative_delete)) & subtype != "CapitalStock") relative_delete[[subtype]][relative_delete[[subtype]] %in% getItems(x,dim=3.2)] else if(subtype == "CapitalStock") relative_delete[[subtype]][relative_delete[[subtype]] %in% getItems(x,dim=3)]  else NULL
   if (identical(relative_delete, character(0))) stop("For this subtype (",subtype,") units are listed in 'convertFAO' whose entries should be deleted from the data, but none of the specified units could be found in the data.")
   
   ## datasets that contain relative values: and define these dimensions
@@ -63,6 +89,7 @@ convertFAO_online <- function(x,subtype) {
                             "protein_supply_g/cap/day", 
                             "fat_supply_g/cap/day")
   
+
   ### Section for country specific treatment ###
   
   ## data for Eritrea ERI added with 0 if not existing in the dimensionality of 
@@ -104,7 +131,12 @@ convertFAO_online <- function(x,subtype) {
     getRegions(China_mainland) <- "CHN"
     x["CHN",,] <- China_mainland
     x <- x["XCN",,,invert=T]
-  } else if (any(getRegions(x) == "XCN")) {
+  } else if (any(getRegions(x) == "XCN") & subtype == "CapitalStock") { #turns XCN into CHN
+    China_mainland <- x["XCN",,]
+    getRegions(China_mainland) <- "CHN"
+    x <- mbind(x,China_mainland)
+    x <- x["XCN",,,invert=T]
+  }else if (any(getRegions(x) == "XCN") & subtype != "CapitalStock") {
     x <- x["XCN",,,invert=T]
   }
   
@@ -134,22 +166,21 @@ convertFAO_online <- function(x,subtype) {
     x2 <- new.magpie(cells_and_regions = missing, years=getYears(x), names = getNames(x))
     x2[,getYears(x2)[getYears(x2, as.integer = T)>=1992],] <- 0
     x <- mbind(x,x2)
-    vcat(2, "Added the countries", missing, "with value of 0 from 1992 onwards")
   }
 
 
   if (any(subtype == absolute)) {
     x[is.na(x)] <- 0
     x <- toolISOhistorical(x, overwrite = TRUE, additional_mapping = additional_mapping)
-    x <- toolCountryFill(x, fill=0, verbosity = 2)
+    x <- toolCountryFill(x, fill = 0, verbosity = 2)
     if (any(grepl(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]]))) warning("The following elements could be relative: \n", paste(grep(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]], value=TRUE),collapse=" "), "\n" , "and would need a different treatment of NAs in convertFAO")
     
   } else if (!is.null(relative_delete)) {
     x[is.na(x)] <- 0
     x <- x[,,relative_delete, invert=T]  
-    x <- toolISOhistorical(x, overwrite = TRUE, additional_mapping = additional_mapping)
+    x <- if (subtype != "CapitalStock") toolISOhistorical(x, overwrite = TRUE, additional_mapping = additional_mapping) else x #Capital Stock available starting from 1995 (no need for transitions)
     x <- toolCountryFill(x, fill=0, verbosity = 2)
-    if (any(grepl(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]]))) warning("The following elements could be relative: \n", paste(grep(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]], value=TRUE),collapse=" "), "\n" , "and would need a different treatment of NAs in convertFAO")
+    if(subtype != "CapitalStock") if (any(grepl(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]]))) warning("The following elements could be relative: \n", paste(grep(pattern = 'yield|Yield|/', getNames(x, fulldim=T)[[2]], value=TRUE),collapse=" "), "\n" , "and would need a different treatment of NAs in convertFAO")
     
   } else if (any(subtype == c("FSCrop", "FSLive"))) {
 
