@@ -21,13 +21,13 @@ The additional repository can be made available permanently by adding the line a
 
 After that the most recent version of the package can be installed using `install.packages`:
 
-```r 
+```r
 install.packages("mrcommons")
 ```
 
 Package updates can be installed using `update.packages` (make sure that the additional repository has been added before running that command):
 
-```r 
+```r
 update.packages()
 ```
 
@@ -58,4 +58,3 @@ A BibTeX entry for LaTeX users is
   url = {https://github.com/pik-piam/mrcommons},
 }
 ```
-
