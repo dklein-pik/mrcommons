@@ -63,7 +63,6 @@
 <url><loc>/reference/calcGrowingStockPlantations.html</loc></url>
 <url><loc>/reference/calcHistBioplasticProd.html</loc></url>
 <url><loc>/reference/calcHistEmissions.html</loc></url>
-<url><loc>/reference/calcIOEdgeBuildings.html</loc></url>
 <url><loc>/reference/calcIPCCefNSoil.html</loc></url>
 <url><loc>/reference/calcIPCCfracLeach.html</loc></url>
 <url><loc>/reference/calcIniFoodPrice.html</loc></url>
@@ -117,21 +116,16 @@
 <url><loc>/reference/convertCEDS2025.html</loc></url>
 <url><loc>/reference/convertCMIP7_CEDS.html</loc></url>
 <url><loc>/reference/convertDomingues.html</loc></url>
-<url><loc>/reference/convertEEA_EuropeanEnvironmentAgency.html</loc></url>
-<url><loc>/reference/convertEU_ReferenceScenario.html</loc></url>
-<url><loc>/reference/convertEurostat.html</loc></url>
 <url><loc>/reference/convertExpertGuessSSPLivestockProduction.html</loc></url>
 <url><loc>/reference/convertFeedModel.html</loc></url>
 <url><loc>/reference/convertGTAPv8v9.html</loc></url>
 <url><loc>/reference/convertHerridge.html</loc></url>
 <url><loc>/reference/convertICP2017.html</loc></url>
-<url><loc>/reference/convertIEA.html</loc></url>
 <url><loc>/reference/convertIEA_EEI.html</loc></url>
 <url><loc>/reference/convertIFA.html</loc></url>
 <url><loc>/reference/convertIPCC.html</loc></url>
 <url><loc>/reference/convertISIMIP.html</loc></url>
 <url><loc>/reference/convertImageMacc.html</loc></url>
-<url><loc>/reference/convertJRC_IDEES.html</loc></url>
 <url><loc>/reference/convertKoeppen.html</loc></url>
 <url><loc>/reference/convertLassaletta2014.html</loc></url>
 <url><loc>/reference/convertLotzeCampenBiofuel.html</loc></url>
@@ -146,6 +140,7 @@
 <url><loc>/reference/convertSSPResults.html</loc></url>
 <url><loc>/reference/convertSoilGrids.html</loc></url>
 <url><loc>/reference/convertVanDrecht2009.html</loc></url>
+<url><loc>/reference/convertWCDE.html</loc></url>
 <url><loc>/reference/convertWHO.html</loc></url>
 <url><loc>/reference/correctAndrijevic2019.html</loc></url>
 <url><loc>/reference/correctEDGARfood.html</loc></url>
@@ -165,6 +160,7 @@
 <url><loc>/reference/downloadNitrogenBoundariesGridded.html</loc></url>
 <url><loc>/reference/downloadSoilGrids.html</loc></url>
 <url><loc>/reference/downloadUN_PopDiv.html</loc></url>
+<url><loc>/reference/downloadWCDE.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/mrcommons-package.html</loc></url>
 <url><loc>/reference/readACCMIP.html</loc></url>
@@ -180,9 +176,6 @@
 <url><loc>/reference/readEDGAR_LU.html</loc></url>
 <url><loc>/reference/readEDGARfood.html</loc></url>
 <url><loc>/reference/readEDGARghg.html</loc></url>
-<url><loc>/reference/readEEA_EuropeanEnvironmentAgency.html</loc></url>
-<url><loc>/reference/readEU_ReferenceScenario.html</loc></url>
-<url><loc>/reference/readEurostat.html</loc></url>
 <url><loc>/reference/readEurostatLivestock.html</loc></url>
 <url><loc>/reference/readExpertGuessSSPLivestockProduction.html</loc></url>
 <url><loc>/reference/readFeedEfficiencyReg.html</loc></url>
@@ -198,7 +191,6 @@
 <url><loc>/reference/readHerridge.html</loc></url>
 <url><loc>/reference/readHoulton2018.html</loc></url>
 <url><loc>/reference/readICP2017.html</loc></url>
-<url><loc>/reference/readIEA.html</loc></url>
 <url><loc>/reference/readIEA_EEI.html</loc></url>
 <url><loc>/reference/readIFA.html</loc></url>
 <url><loc>/reference/readIMPACT3.2.2World_Price.html</loc></url>
@@ -207,7 +199,6 @@
 <url><loc>/reference/readISIMIP.html</loc></url>
 <url><loc>/reference/readIfBB.html</loc></url>
 <url><loc>/reference/readImageMacc.html</loc></url>
-<url><loc>/reference/readJRC_IDEES.html</loc></url>
 <url><loc>/reference/readKoeppen.html</loc></url>
 <url><loc>/reference/readLassaletta2014.html</loc></url>
 <url><loc>/reference/readLotzeCampenBiofuel.html</loc></url>
@@ -228,11 +219,11 @@
 <url><loc>/reference/readTransportCostsGTAP.html</loc></url>
 <url><loc>/reference/readVanDrecht2009.html</loc></url>
 <url><loc>/reference/readWBGEM.html</loc></url>
+<url><loc>/reference/readWCDE.html</loc></url>
 <url><loc>/reference/readWHO.html</loc></url>
 <url><loc>/reference/readZhang2015.html</loc></url>
 <url><loc>/reference/toolAWMSScenarioCreation.html</loc></url>
 <url><loc>/reference/toolCalcIEAfromStructureMappingPEFE.html</loc></url>
 <url><loc>/reference/toolPregnant.html</loc></url>
-<url><loc>/reference/toolSplitBiomass.html</loc></url>
 </urlset>
 
